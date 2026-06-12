@@ -1,0 +1,6 @@
+.env
+.venv
+medquad_chroma
+__pycache__
+MedQuAD
+.sqlite3
