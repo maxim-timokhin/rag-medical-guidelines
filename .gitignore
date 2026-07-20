@@ -7,3 +7,5 @@ medquad_chroma
 .google-agents-cli/
 *.log
 artifacts/
+.agents-cli-spec.md
+agents-cli-manifrst.yaml

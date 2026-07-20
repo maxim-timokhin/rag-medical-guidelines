@@ -41,19 +41,27 @@ def setup_telemetry() -> str | None:
             "Prompt-response logging disabled (set LOGS_BUCKET_NAME=gs://your-bucket and OTEL_INSTRUMENTATION_GENAI_CAPTURE_MESSAGE_CONTENT=NO_CONTENT to enable)"
         )
 
-    # Set up OpenTelemetry exporters for Cloud Trace and Cloud Logging
-    credentials, project_id = google.auth.default()
-    otel_hooks = get_gcp_exporters(
-        enable_cloud_tracing=True,
-        enable_cloud_metrics=False,
-        enable_cloud_logging=True,
-        google_auth=(credentials, project_id),
-    )
-    otel_resource = get_gcp_resource(project_id)
-    maybe_set_otel_providers(
-        otel_hooks_to_setup=[otel_hooks],
-        otel_resource=otel_resource,
-    )
+    # Set up OpenTelemetry exporters for Cloud Trace and Cloud Logging, if GCP
+    # credentials are available (not required when running purely on
+    # GEMINI_API_KEY / OPENAI_API_KEY with no GCP project involved).
+    try:
+        credentials, project_id = google.auth.default()
+    except google.auth.exceptions.DefaultCredentialsError:
+        logging.info(
+            "No GCP credentials found - skipping Cloud Trace/Logging export"
+        )
+    else:
+        otel_hooks = get_gcp_exporters(
+            enable_cloud_tracing=True,
+            enable_cloud_metrics=False,
+            enable_cloud_logging=True,
+            google_auth=(credentials, project_id),
+        )
+        otel_resource = get_gcp_resource(project_id)
+        maybe_set_otel_providers(
+            otel_hooks_to_setup=[otel_hooks],
+            otel_resource=otel_resource,
+        )
 
     # Set up GenAI SDK instrumentation
     _setup_instrumentation_lib_if_installed()
