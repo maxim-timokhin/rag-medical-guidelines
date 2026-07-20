@@ -1,0 +1,32 @@
+{
+  "eval_cases": [
+    {
+      "eval_case_id": "pyridoxine-dependent-epilepsy",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "What is pyridoxine-dependent epilepsy?"}]
+      }
+    },
+    {
+      "eval_case_id": "diabetes-symptoms",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "What are the symptoms of Diabetes?"}]
+      }
+    },
+    {
+      "eval_case_id": "capital-of-france",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "What is the capital of France?"}]
+      }
+    },
+    {
+      "eval_case_id": "out-of-source-question",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "Who won the 2026 World Cup?"}]
+      }
+    }
+  ]
+}

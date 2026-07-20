@@ -1,6 +1,9 @@
 .env
 .venv
-medquad_chroma
 __pycache__
 MedQuAD
-.sqlite3
+medquad_chroma
+.adk/
+.google-agents-cli/
+*.log
+artifacts/
